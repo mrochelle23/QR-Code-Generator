@@ -3,20 +3,6 @@
 import { useState } from 'react';
 import BusinessCardPreview from '@/components/BusinessCardPreview';
 
-// Social media platforms list (abbreviated for space)
-const SOCIAL_PLATFORMS = [
-  { id: 'twitter', name: 'X (Twitter)' },
-  { id: 'linkedin', name: 'LinkedIn' },
-  { id: 'github', name: 'GitHub' },
-  { id: 'instagram', name: 'Instagram' },
-  { id: 'facebook', name: 'Facebook' },
-  { id: 'youtube', name: 'YouTube' },
-  { id: 'email', name: 'Email' },
-  { id: 'website', name: 'Website' },
-  { id: 'phone', name: 'Phone' },
-  { id: 'whatsapp', name: 'WhatsApp' },
-];
-
 export default function AdminGenerator() {
   const [cardName, setCardName] = useState('My Business Card');
   const [personName, setPersonName] = useState('');
@@ -29,12 +15,11 @@ export default function AdminGenerator() {
   const [personPhoto, setPersonPhoto] = useState<string | null>(null);
   const [companyLogo, setCompanyLogo] = useState<string | null>(null);
   const [socialMedia, setSocialMedia] = useState<{ platform: string; url: string; icon?: string }[]>([]);
-  const [socialMediaInput, setSocialMediaInput] = useState({ platform: '', url: '' });
   const [cardBgColor, setCardBgColor] = useState('#FFFFFF');
   const [contentBgPattern, setContentBgPattern] = useState('none');
   const [contentBgOpacity, setContentBgOpacity] = useState(15);
-  const [qrSize, setQrSize] = useState(256);
-  const [errorCorrection, setErrorCorrection] = useState('M');
+  const qrSize = 256;
+  const errorCorrection = 'M';
   const [isSaving, setIsSaving] = useState(false);
 
   const generateSlug = (name: string) => {
@@ -69,23 +54,6 @@ export default function AdminGenerator() {
       };
       reader.readAsDataURL(file);
     }
-  };
-
-  const handleAddSocialMedia = () => {
-    if (socialMediaInput.platform && socialMediaInput.url) {
-      setSocialMedia([
-        ...socialMedia,
-        {
-          platform: socialMediaInput.platform,
-          url: socialMediaInput.url,
-        },
-      ]);
-      setSocialMediaInput({ platform: '', url: '' });
-    }
-  };
-
-  const handleRemoveSocialMedia = (index: number) => {
-    setSocialMedia(socialMedia.filter((_, i) => i !== index));
   };
 
   const handleSaveCard = async () => {
